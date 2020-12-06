@@ -1,47 +1,48 @@
 package main
 
 import (
-  "fmt"
+	"fmt"
 )
 
 type coordinates interface {
-  xaxis() int
-  yaxis() int
+	xaxis() int
+	yaxis() int
 }
 
 type point2D struct {
-  X int
-  Y int
+	X int
+	Y int
 }
 
 func (s point2D) xaxis() int {
-  return s.X
+	return s.X
 }
 
 func (s point2D) yaxis() int {
-  return s.Y
+	return s.Y
 }
 
 func findCoordinates(a coordinates) {
-  fmt.Println("X:", a.xaxis(), "Y:", a.yaxis())
+	fmt.Println("X:", a.xaxis(), "Y:", a.yaxis())
 }
 
 type coordinate int
 
 func (s coordinate) xaxis() int {
-  return int(s)
+	return int(s)
 }
 
 func (s coordinate) yaxis() int {
-  return 0
+	return 0
 }
 
 func main() {
 
-  x := point2D{X: -1, Y: 12}
-  fmt.Println(x)
-  findCoordinates(x)
+	x := point2D{X: -1, Y: 12}
+	fmt.Println(x)
+	findCoordinates(x)
 
-  y := coordinates(10)
-  findCoordinates(y)
+	y := coordinate(10)
+	findCoordinates(y)
 }
+
