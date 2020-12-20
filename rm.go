@@ -11,10 +11,15 @@ func main() {
     os.Exit(1)
   }
 
-  file := arguments[1]
-  err := os.Remove(file)
-  if err != nil {
-    fmt.Println(err)
-    return
+  for idx, file := range arguments {
+
+    if idx == 0 {
+      continue
+    }
+    err := os.Remove(file)
+    if err != nil {
+      fmt.Println(err)
+      continue
+    }
   }
 }
