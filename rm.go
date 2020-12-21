@@ -1,25 +1,37 @@
 package main
 import (
+  "flag"
   "fmt"
   "os"
 )
 
 func main() {
-  arguments := os.Args
-  if len(arguments) == 1 {
+  minusVERBOSE := flag.Bool("v", false, "Verbose")
+  flag.Parse()
+  arguments := flag.Args()
+
+  if len(arguments) == 0 {
     fmt.Println("Please provide an argument!")
     os.Exit(1)
   }
 
-  for idx, file := range arguments {
+  for _, file := range arguments {
 
-    if idx == 0 {
-      continue
+    if *minusVERBOSE {
+      fmt.Println("INFO: Preparing to remove:", file)
     }
+
     err := os.Remove(file)
     if err != nil {
+      if *minusVERBOSE {
+        fmt.Println("ERROR: Failed to remove:", file)
+      }
       fmt.Println(err)
       continue
+    } else {
+      if *minusVERBOSE {
+        fmt.Println("INFO: Success! Removed:", file)
+      }
     }
   }
 }
